@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="swagger-java-client" />
+        <module name="upic-client1-java" />
       </profile>
     </annotationProcessing>
   </component>

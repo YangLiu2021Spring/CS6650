@@ -1,10 +1,10 @@
-package cs6650.fall.assignment.skiers;
+package clientPart1.skiers;
 
 import io.swagger.client.ApiException;
 
 import java.util.concurrent.CountDownLatch;
 
-public class Assignment1Part1 {
+public class ClientPart1 {
     private static final int FIRST_ROUND_THREADS = 32;
     private static final int FIRST_ROUND_REQUESTS_PER_THREAD = 1000;
     private static final int SECOND_ROUND_THREADS = 100;

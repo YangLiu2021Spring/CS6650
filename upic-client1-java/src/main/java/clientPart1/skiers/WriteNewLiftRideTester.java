@@ -1,8 +1,8 @@
-package cs6650.fall.assignment.skiers;
+package clientPart1.skiers;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.model.LiftRide;
-import cs6650.fall.assignment.util.RandomUtils;
+import clientPart1.util.RandomUtils;
 
 public class WriteNewLiftRideTester {
     private static final int INITIAL_RETRIED_TIMES = 0;

@@ -1,10 +1,9 @@
-package cs6650.fall.assignment.skiers;
+package clientPart1.skiers;
 
 import io.swagger.client.ApiClient;
 import io.swagger.client.api.SkiersApi;
 
 public final class SkiersApiFactory {
-    //private static final String BASE_PATH = "http://192.168.68.101/upic";
     private static final String BASE_PATH = "http://44.227.82.44:8080/upic";
 
     /**
@@ -20,6 +19,7 @@ public final class SkiersApiFactory {
     }
 
     private SkiersApiFactory() {
+
         throw new UnsupportedOperationException();
     }
 }
