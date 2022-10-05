@@ -1,6 +1,5 @@
 package clientpart2.skiers;
 
-
 import clientpart2.util.FileUtils;
 import io.swagger.client.ApiException;
 
