@@ -1,5 +1,18 @@
-# swagger-java-client
+# Deploy
+1. mvn clean
+2. mvn package
+3. scp entire target folder to your EC2 via command:
+```
+scp -i "/System/Volumes/Data/codespace/keys/linux-key.pem" -r target ec2-user@ec2-52-33-213-75.us-west-2.compute.amazonaws.com:/home/ec2-user/upic-client-java
+```
+4. run the app in a screen session
+```
+with CLI application screen, we are able to esialy restore the SSH session after reconnect it.
+$ screen (or screen -rd to re-attache the session. to quit a screen, use Control + a + d)
+$ ~/upic-client-java/appassembler/bin/app 200000 1000 32 100 100 http://34.221.48.89:8080/upic
+```
 
+# swagger-java-client
 Ski Data API for NEU Seattle distributed systems course
 - API version: 2.0
   - Build date: 2022-10-03T23:51:20.529Z[GMT]
