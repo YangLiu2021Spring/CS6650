@@ -2,22 +2,24 @@ package io.swagger.manager;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
-
-import static io.swagger.configuration.SkierMessageQueueConfiguration.QUEUE_NAME;
 
 /**
  * A manager class which helps to manage the message publishing for the skier message.
  */
 @Component
 public class SkierMessageQueueManager {
-    private final Connection mqConnection;
+    public static final String QUEUE_NAME = "hello";
 
-    public SkierMessageQueueManager(Connection mqConnection) {
-        this.mqConnection = mqConnection;
+    private final SkierMessageQueueConnectionManager skierMessageQueueConnectionManager;
+
+    @Autowired
+    public SkierMessageQueueManager(SkierMessageQueueConnectionManager skierMessageQueueConnectionManager) {
+        this.skierMessageQueueConnectionManager = skierMessageQueueConnectionManager;
     }
 
     /**
@@ -28,6 +30,8 @@ public class SkierMessageQueueManager {
      */
     public void publish(String message) {
         Objects.requireNonNull(message, "The given message is null.");
+
+        Connection mqConnection = skierMessageQueueConnectionManager.getSkierMessageQueueConnection();
 
         try {
             Channel channel = mqConnection.createChannel();

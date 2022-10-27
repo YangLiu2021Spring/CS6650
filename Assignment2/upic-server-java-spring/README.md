@@ -23,3 +23,5 @@ Change default port value in application.properties
 1. mvn package
 1. mvn war:war
 1. deploy file upic.war under folder target to the tomcat server.
+1. set the RMQ host IP: http://localhost:8080/upic/set-configuration?rmqHostIP=<change-to-your-new-ip>
+1. to check the current configuration: http://localhost:8080/upic/dump-configuration
