@@ -8,7 +8,9 @@ scp -i "/System/Volumes/Data/codespace/keys/linux-key.pem" -r target ec2-user@ec
 4. run the app in a screen session
 ```
 with CLI application screen, we are able to esialy restore the SSH session after reconnect it.
-$ screen (or screen -rd to re-attache the session. to quit a screen, use Control + a + d)
+$ ssh -i "/System/Volumes/Data/codespace/keys/linux-key.pem" ec2-user@ec2-52-13-7-192.us-west-2.compute.amazonaws.com
+$ screen (or screen -rd to re-attache the session. to quit a screen, use Control + a -> d)
+$ ### --> send requests to the web server
 $ ~/upic-client-java/appassembler/bin/app 200000 1000 32 100 100 http://34.221.48.89:8080/upic
 ```
 
