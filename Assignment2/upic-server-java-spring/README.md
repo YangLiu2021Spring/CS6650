@@ -1,3 +1,16 @@
+# Prerequisites
+sudo /usr/share/tomcat/bin/startup.sh
+
+## Deploy
+1. renew the configuration changes, e.g., RMQ IP
+1. mvn clean:clean
+1. mvn package
+1. mvn war:war
+1. deploy file upic.war under folder target to the tomcat server.
+1. set the RMQ host IP: http://52.11.85.169:8080/upic/set-configuration?rmqHostIP=34.211.80.63
+1. to check the current configuration: http://52.11.85.169:8080/upic/dump-configuration
+1. to test the API http://52.11.85.169:8080/upic/swagger-ui/ 
+
 # Swagger generated server
 
 Spring Boot Server 
@@ -16,12 +29,3 @@ You can view the api documentation in swagger-ui by pointing to
 http://localhost:8080/  
 
 Change default port value in application.properties
-
-## Deploy
-1. renew the configuration changes, e.g., RMQ IP
-1. mvn clean:clean
-1. mvn package
-1. mvn war:war
-1. deploy file upic.war under folder target to the tomcat server.
-1. set the RMQ host IP: http://localhost:8080/upic/set-configuration?rmqHostIP=<change-to-your-new-ip>
-1. to check the current configuration: http://localhost:8080/upic/dump-configuration

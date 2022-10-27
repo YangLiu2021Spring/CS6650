@@ -1,3 +1,7 @@
+# Prerequisites
+1. setup a new EC2 instance (Amazon Linux 2, x86_64)
+2. sudo yum install java-1.8.0
+
 # Deploy
 1. mvn clean
 2. mvn package
@@ -11,7 +15,7 @@ with CLI application screen, we are able to esialy restore the SSH session after
 $ ssh -i "/System/Volumes/Data/codespace/keys/linux-key.pem" ec2-user@ec2-52-13-7-192.us-west-2.compute.amazonaws.com
 $ screen (or screen -rd to re-attache the session. to quit a screen, use Control + a -> d)
 $ ### --> send requests to the web server
-$ ~/upic-client-java/appassembler/bin/app 200000 1000 32 100 100 http://34.221.48.89:8080/upic
+$ ~/upic-client-java/appassembler/bin/app 200000 1000 200 50 100 http://52.11.85.169:8080/upic
 ```
 
 # swagger-java-client
