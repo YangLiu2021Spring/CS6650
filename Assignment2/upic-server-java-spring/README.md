@@ -1,7 +1,7 @@
 # Prerequisites
 sudo /usr/share/tomcat/bin/startup.sh
 
-## Deploy
+# Deploy
 1. renew the configuration changes, e.g., RMQ IP
 1. mvn clean:clean
 1. mvn package
@@ -9,7 +9,12 @@ sudo /usr/share/tomcat/bin/startup.sh
 1. deploy file upic.war under folder target to the tomcat server.
 1. set the RMQ host IP: http://52.11.85.169:8080/upic/set-configuration?rmqHostIP=34.211.80.63
 1. to check the current configuration: http://52.11.85.169:8080/upic/dump-configuration
-1. to test the API http://52.11.85.169:8080/upic/swagger-ui/ 
+1. to test the API http://52.11.85.169:8080/upic/swagger-ui/
+
+# Test
+```
+curl -v -X POST "http://52.11.85.169:8080/upic/skiers/1/seasons/2022/days/1/skiers/1" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"liftID\":21,\"time\":217}"
+```
 
 # Swagger generated server
 

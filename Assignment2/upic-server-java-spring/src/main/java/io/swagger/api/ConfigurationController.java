@@ -1,6 +1,6 @@
 package io.swagger.api;
 
-import io.swagger.manager.SkierMessageQueueConnectionManager;
+import io.swagger.manager.SkierMessageQueueManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StringUtils;
@@ -12,10 +12,10 @@ import java.util.Objects;
 
 @RestController
 public class ConfigurationController {
-    private final SkierMessageQueueConnectionManager skierMessageQueueConnectionManager;
+    private final SkierMessageQueueManager skierMessageQueueConnectionManager;
 
     @Autowired
-    public ConfigurationController(SkierMessageQueueConnectionManager skierMessageQueueConnectionManager) {
+    public ConfigurationController(SkierMessageQueueManager skierMessageQueueConnectionManager) {
         this.skierMessageQueueConnectionManager = skierMessageQueueConnectionManager;
     }
 

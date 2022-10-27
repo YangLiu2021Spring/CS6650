@@ -2,10 +2,10 @@ package io.swagger.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.swagger.manager.SkierMessageQueueManager;
 import io.swagger.model.LiftRide;
 import io.swagger.model.SkierVertical;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.manager.SkierMessageQueueManager;
 import io.swagger.util.RequestUtils;
 import io.swagger.util.ResponseEntityUtils;
 import io.swagger.v3.oas.annotations.Parameter;
