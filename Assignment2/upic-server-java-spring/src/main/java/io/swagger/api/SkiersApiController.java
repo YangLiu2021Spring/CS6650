@@ -1,8 +1,11 @@
 package io.swagger.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.swagger.model.LiftRide;
 import io.swagger.model.SkierVertical;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.manager.SkierMessageQueueManager;
 import io.swagger.util.RequestUtils;
 import io.swagger.util.ResponseEntityUtils;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -28,16 +31,25 @@ import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-10-02T23:08:56.616Z[GMT]")
 @RestController
 public class SkiersApiController implements SkiersApi {
+    private final static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
     private static final Logger log = LoggerFactory.getLogger(SkiersApiController.class);
 
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
 
+    private final SkierMessageQueueManager skierMessageQueueManager;
+
     @org.springframework.beans.factory.annotation.Autowired
-    public SkiersApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public SkiersApiController(
+        ObjectMapper objectMapper,
+        HttpServletRequest request,
+        SkierMessageQueueManager skierMessageQueueManager
+    ) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.skierMessageQueueManager = skierMessageQueueManager;
     }
 
     public ResponseEntity<Integer> getSkierDayVertical(@Parameter(in = ParameterIn.PATH, description = "ID of the resort the skier is at", required=true, schema=@Schema()) @PathVariable("resortID") Integer resortID,@Parameter(in = ParameterIn.PATH, description = "ID of the ski season", required=true, schema=@Schema()) @PathVariable("seasonID") String seasonID,@DecimalMin("1") @DecimalMax("366") @Parameter(in = ParameterIn.PATH, description = "ID number of ski day in the ski season", required=true, schema=@Schema()) @PathVariable("dayID") String dayID,@Parameter(in = ParameterIn.PATH, description = "ID of the skier riding the lift", required=true, schema=@Schema()) @PathVariable("skierID") Integer skierID) {
@@ -127,6 +139,13 @@ public class SkiersApiController implements SkiersApi {
         ) {
             return ResponseEntityUtils.buildBadRequest(String.format(
                 "Expect time is between <1> and <360>, but it was <%s>.", liftRide.getTime()));
+        }
+
+        try {
+            skierMessageQueueManager.publish(GSON.toJson(liftRide));
+        } catch (RuntimeException e) {
+            log.error("Failed to publish message {}", GSON.toJson(liftRide), e);
+            throw e;
         }
 
         // otheriwse, returns CREATED

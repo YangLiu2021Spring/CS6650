@@ -16,3 +16,10 @@ You can view the api documentation in swagger-ui by pointing to
 http://localhost:8080/  
 
 Change default port value in application.properties
+
+## Deploy
+1. renew the configuration changes, e.g., RMQ IP
+1. mvn clean:clean
+1. mvn package
+1. mvn war:war
+1. deploy file upic.war under folder target to the tomcat server.
