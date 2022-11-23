@@ -15,7 +15,7 @@ with CLI application screen, we are able to esialy restore the SSH session after
 $ ssh -i "/System/Volumes/Data/codespace/keys/linux-key.pem" ec2-user@ec2-52-13-7-192.us-west-2.compute.amazonaws.com
 $ screen (or screen -rd to re-attache the session. to quit a screen, use Control + a -> d)
 $ ### --> send requests to the web server
-$ ~/upic-client-java/appassembler/bin/app http://lb-upic-web-1757023158.us-west-2.elb.amazonaws.com:8080/upic 200000 1000 200 50 100
+$ ~/upic-client-java/appassembler/bin/app http://lb-upic-web-1757023158.us-west-2.elb.amazonaws.com/upic 200000 1000 200 50 100
 ```
 
 # swagger-java-client
