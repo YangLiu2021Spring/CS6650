@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class ThroughputAppCore {
     protected static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
@@ -26,7 +27,7 @@ public class ThroughputAppCore {
 
         // the first round consumers
         logInfo("Starting the first round test.");
-        CountDownLatch countDownLatch1 = new CountDownLatch(appArg.getFirstRoundTotalRequests());
+        CountDownLatch countDownLatch1 = new CountDownLatch(1);
         for (int i = 0; i < appArg.getFirstRoundThreads(); i++) {
             new Thread(() -> {
                 //logInfo("queue.peek() " + GSON.toJson(queue.peek()));
@@ -59,8 +60,19 @@ public class ThroughputAppCore {
             AppArg appArg = new AppArg(args);
             return appArg;
         } catch (Exception e) {
-            logInfo(String.format("Failed to parse arguments from input %s", GSON.toJson(args)));
             e.printStackTrace();
+            logInfo(String.format(
+                    "Failed to parse arguments from input %s. Please consider input 6 args likes below.\n" +
+                    "~/upic-client-java/appassembler/bin/app \\\n" +
+                    "http://lb-upic-web-1757023158.us-west-2.elb.amazonaws.com/upic/ 200000 200000 32 1000 250\n\n" +
+                    "Meanings by order number:\n" +
+                    "0 - API base patch\n" +
+                    "1 - total requests will be posted to the web server\n" +
+                    "2 - blocking queue capacity, which is used to turn the latency\n" +
+                    "3 - number the first round threads, should be 32 by requirement from the assignment\n" +
+                    "4 - number of requests send per thread of the first round, should be 1000 by requirement\n" +
+                    "5 - number of the second round threads\n",
+                    GSON.toJson(args)));
             throw new RuntimeException(e);
         }
     }
@@ -76,12 +88,12 @@ public class ThroughputAppCore {
 
         public AppArg(String args[]) {
             this.name = null;
-            this.totalRequests = Long.parseLong(args[0]); // should be 200K
-            this.queueCapacity = Integer.parseInt(args[1]);
-            this.firstRoundThreads = Integer.parseInt(args[2]); // should be 32 threads
-            this.firstRoundRequestsPerThread = Integer.parseInt(args[3]); // should be 100 requests per thread
-            this.secondRoundThreads = Integer.parseInt(args[4]);
-            this.apiBasePath = args[5]; // i.e., http://44.227.82.44:8080/upic
+            this.apiBasePath = args[0]; // i.e., http://44.227.82.44:8080/upic
+            this.totalRequests = Long.parseLong(args[1]); // should be 200K
+            this.queueCapacity = Integer.parseInt(args[2]); // the blocking queue capacity
+            this.firstRoundThreads = Integer.parseInt(args[3]); // should be 32 threads
+            this.firstRoundRequestsPerThread = Integer.parseInt(args[4]); // should be 1000 requests per thread
+            this.secondRoundThreads = Integer.parseInt(args[5]);
         }
 
         public AppArg withName(String name) {

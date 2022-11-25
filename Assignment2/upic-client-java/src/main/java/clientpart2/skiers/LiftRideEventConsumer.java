@@ -62,7 +62,7 @@ public class LiftRideEventConsumer {
             int maxRetryTimes
     ) throws ApiException {
         try {
-            skiersApiFactory.newSkiersApi().writeNewLiftRide(
+            skiersApiFactory.getSkiersApi().writeNewLiftRide(
                     event.getLiftRide(), event.getResortID(), event.getSeasonID(), event.getDayID(), event.getSkierID());
         } catch (ApiException e) {
             retriedTimes ++;

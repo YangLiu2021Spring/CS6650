@@ -142,13 +142,18 @@ public class SkiersApiController implements SkiersApi {
         }
 
         try {
-            skierMessageQueueManager.publish(GSON.toJson(liftRide));
+            skierMessageQueueManager.publish(toJson(liftRide));
         } catch (RuntimeException e) {
-            log.error("Failed to publish message {}", GSON.toJson(liftRide), e);
+            log.error("Failed to publish message {}", toJson(liftRide), e);
             throw e;
         }
 
         // otheriwse, returns CREATED
         return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    private String toJson(LiftRide liftRide) {
+        return String.format("{\"liftID\":%d,\"time\":%d}",
+                liftRide.getLiftID().intValue(), liftRide.getTime().intValue());
     }
 }
